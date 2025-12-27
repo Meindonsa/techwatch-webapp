@@ -9,7 +9,8 @@ const articles = [
     title: 'Streamlining your design process today.',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, architecto iste necessitatibus nobis quae unde. Consequatur ea eum ipsum iure perspiciatis voluptates. Aliquid at dolores est exercitationem fugiat mollitia quidem.',
-    date: new Date()
+    fetchedDate: new Date(),
+    author: 'Jashwanth Thatipamula',
   },
 ]
 </script>
