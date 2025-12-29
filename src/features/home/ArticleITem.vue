@@ -6,8 +6,10 @@ const { formatDate } = datePipe()
 </script>
 
 <template>
-  <a
-    class="flex flex-col items-center bg-neutral-primary-soft p-3 border border-gray-50 rounded-base shadow-xs md:flex-row md:max-w-xl"
+  <RouterLink
+    :to="'article/' + article.fid"
+    :state="{ article: article }"
+    class="flex flex-col items-center bg-neutral-primary-soft p-3 mb-3 border border-gray-500 hover:border-gray-50 rounded-base shadow-xs cursor-pointer"
   >
     <div class="flex flex-col justify-between md:p-4 leading-normal">
       <h5 class="mb-2 text-md font-bold text-indigo-500">
@@ -22,7 +24,7 @@ const { formatDate } = datePipe()
         <span>{{ formatDate(article.fetchedDate, 'mediumDate') }}</span>
       </div>
     </div>
-  </a>
+  </RouterLink>
 </template>
 
 <style scoped></style>
