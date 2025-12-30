@@ -2,13 +2,45 @@
 import { useFilterStore } from '@/core/stores/filter.ts'
 import ArticleITem from '@/features/home/ArticleITem.vue'
 import Sources from '@/features/home/Sources.vue'
-import { ref } from 'vue'
-import { articleData } from '@/shared/service/ArticleData.ts'
+import { onMounted, ref } from 'vue'
 import Paginator from '@/shared/components/Paginator.vue'
+import { ArticleService } from '@/shared/api/ArticleService.ts'
+import type { ArticlesView } from '@meindonsa/chat-api/models'
+import { useArticleStore } from '@/core/stores/article.ts'
 
+const loading = ref(false)
 const useFilter = useFilterStore()
+const useArticle = useArticleStore()
+const articles = ref<ArticlesView[]>([])
+const pagination = ref({
+  total: 0,
+  page: 0,
+  size: 5,
+})
+const retrieveArticles = async (pageIndex = 0) => {
+  loading.value = true
+  try {
+    const body = { size: 5, index: pageIndex }
+    const { data } = await ArticleService.retrieveArticles(body)
+    if (data) {
+      articles.value = data.objects
+      pagination.value.total = data.total
+      pagination.value.page = pageIndex
+    }
+  } catch (e) {
+    console.error('Erreur lors de la récupération :', e)
+  } finally {
+    loading.value = false
+  }
+}
 
-const articles = ref(articleData)
+const handlePageChange = (newPage: number) => {
+  retrieveArticles(newPage)
+}
+
+onMounted(() => {
+  retrieveArticles()
+})
 </script>
 
 <template>
@@ -19,7 +51,13 @@ const articles = ref(articleData)
         <TransitionGroup>
           <ArticleITem v-for="article in articles" :key="article.fid" :article="article" />
         </TransitionGroup>
-        <Paginator/>
+        <Paginator
+          :total-items="pagination.total"
+          :items-per-page="pagination.size"
+          :current-page="pagination.page"
+          @change-page="handlePageChange"
+
+        />
       </div>
       <div class="w-[30%]">
         <Sources />

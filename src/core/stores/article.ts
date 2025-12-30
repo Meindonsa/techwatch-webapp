@@ -3,10 +3,12 @@ import { computed, type ComputedRef, type Ref, ref } from 'vue'
 import { articleData } from '@/shared/service/ArticleData.ts'
 
 export const useArticleStore = defineStore('article', () => {
-  const articles: Ref<any[]> = ref(articleData)
+  const articles: Ref<any[]> = ref([])
   const selectedArticleId: Ref<string | null> = ref(null)
   const data = computed(() => {
+    console.log(articles.value)
     const a = articles.value.find((item: any): boolean => item.fid == selectedArticleId.value)
+    console.log(a);
     return a
   })
 

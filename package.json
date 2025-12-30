@@ -15,7 +15,9 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@meindonsa/chat-api": "file:../tech-watch/library/release/meindonsa-techwatch-api-0.0.2.tgz",
     "@tailwindcss/vite": "^4.1.18",
+    "axios": "^1.13.2",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.25",
