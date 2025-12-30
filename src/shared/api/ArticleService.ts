@@ -1,7 +1,8 @@
 import api from '@/shared/api/axiosInstance.ts'
-import { Configuration, ArticleApi } from '@meindonsa/chat-api'
 import type { AxiosResponse } from 'axios'
-import type { PaginatedRequest } from '@meindonsa/chat-api/models'
+import type { PaginatedRequest } from '@meindonsa/techwatch-api/models'
+import { ArticleApi } from '@meindonsa/techwatch-api/api'
+import { Configuration } from '@meindonsa/techwatch-api/configuration'
 
 const articleApi = new ArticleApi(new Configuration(), undefined, api)
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { SourceService } from '@/shared/api/SourceService.ts'
-import type { SourcesView } from '@meindonsa/chat-api/models'
+import type { SourceView } from '@meindonsa/techwatch-api/models'
 
 const loading = ref(false)
-const sources = ref<SourcesView[]>([])
+const sources = ref<SourceView[]>([])
 const retrieveSources = async () => {
   loading.value = true
   const body = {
@@ -23,25 +23,23 @@ onMounted(() => {
 
 <template>
   <div
-    class="w-full max-w-sm p-6 bg-neutral-primary-soft border border-default rounded-base shadow-xs"
+    class="w-full max-w-sm p-6 bg-neutral-primary-soft border border-gray-500 rounded-base shadow-xs"
   >
     <h5 class="mb-4 text-xl font-semibold leading-none text-heading text-white">Sources</h5>
     <div class="flow-root">
-      <div class="text-center text-gray-700" v-if="loading">
-        Chargement ...
-      </div>
+      <div class="text-center text-gray-700" v-if="loading">Chargement ...</div>
       <TransitionGroup tag="ul" mode="easy-in-out" role="list" class="divide-default text-gray-300">
         <li
           v-for="source of sources"
-          :key="source.fid"
+          :key="source?.fid"
           class="text-sm text-body truncate mb-2 hover:text-indigo-500 transition ease-in-out duration-300"
         >
           <a
-            :href="source.url"
+            :href="source?.url"
             target="_blank"
             class="cursor-pointer hover:underline hover:underline-offset-4"
           >
-            {{ source.name }}
+            {{ source?.name }}
           </a>
         </li>
       </TransitionGroup>

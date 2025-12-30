@@ -14,10 +14,6 @@ const { formatDate } = datePipe()
       <h5 class="mb-2 text-md font-bold text-indigo-500">
         {{ article.title }}
       </h5>
-      <p class="mb-3 text-sm text-gray-200">
-        In today’s fast-paced digital landscape, fostering seamless collaboration among Developers
-        and IT Operations.
-      </p>
       <div class="flex justify-between w-full text-sm text-gray-500">
         <span>{{ 'Par: ' + article.author }}</span>
         <span>{{ formatDate(article.fetchedDate, 'mediumDate') }}</span>

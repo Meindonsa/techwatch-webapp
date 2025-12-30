@@ -15,7 +15,7 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "@meindonsa/chat-api": "file:../tech-watch/library/release/meindonsa-techwatch-api-0.0.2.tgz",
+    "@meindonsa/techwatch-api": "^0.0.4",
     "@tailwindcss/vite": "^4.1.18",
     "axios": "^1.13.2",
     "pinia": "^3.0.4",
@@ -24,6 +24,7 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@tsconfig/node24": "^24.0.3",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",

@@ -26,7 +26,7 @@ const onFilter = (name: string) => {
       <RouterLink to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
         <span class="self-center text-xl text-white text-heading font-semibold whitespace-nowrap">
-          Flowbite
+          Tech-watch
         </span>
       </RouterLink>
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
