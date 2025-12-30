@@ -49,7 +49,7 @@ onMounted(() => {
     <div class="flex gap-5">
       <div class="w-[70%]">
         <TransitionGroup>
-          <ArticleITem v-for="article in articles" :key="article.fid" :article="article" />
+          <ArticleITem v-for="article in articles" :key="article?.fid" :article="article" />
         </TransitionGroup>
         <Paginator
           :total-items="pagination.total"
