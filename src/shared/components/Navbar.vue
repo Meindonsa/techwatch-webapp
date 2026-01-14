@@ -2,10 +2,11 @@
 import { ref } from 'vue'
 import { SourceFilters } from '@/shared/service/NavbarData.ts'
 import { useFilterStore } from '@/core/stores/filter.ts'
+import SearchbBar from '@/shared/components/SearchbBar.vue'
 
 const filter = ref('ALL')
 const filters = ref(SourceFilters)
-const useFilter = useFilterStore();
+const useFilter = useFilterStore()
 
 const isActive = (name: string) => {
   const activated = filter.value == name
@@ -14,10 +15,9 @@ const isActive = (name: string) => {
 
 const onFilter = (name: string) => {
   if (name == filter.value) return
-  filter.value = name;
-  useFilter.setFilter(name);
+  filter.value = name
+  useFilter.setFilter(name)
 }
-
 </script>
 
 <template>
@@ -29,7 +29,8 @@ const onFilter = (name: string) => {
           Tech-watch
         </span>
       </RouterLink>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+       <SearchbBar/>
+<!--      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul
           class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary"
         >
@@ -43,7 +44,7 @@ const onFilter = (name: string) => {
             </a>
           </li>
         </ul>
-      </div>
+      </div>-->
     </div>
   </nav>
 </template>
