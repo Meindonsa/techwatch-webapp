@@ -29,17 +29,14 @@ onMounted(() => {
     <div class="flex justify-center gap-5">
       <div class="w-[70%]">
         <h1 class="text-2xl text-indigo-500 font-bold mb-5">{{ article?.title }}</h1>
-        <div
-          class=" mb-10 prose prose-invert prose-indigo"
-          v-html="article?.content"
-        ></div>
+        <div class="mb-10 prose prose-invert prose-indigo" v-html="article?.content"></div>
         <div class="flex justify-between text-sm italic font-thin text-gray-100">
           <span>
             Source :
             <a :href="article?.url" target="_blank" class="underline underline-offset-4">
               {{ article?.source?.name }}
             </a>
-            - {{ article?.author }}
+            - {{ article?.author || 'Inconnu' }}
           </span>
           <span>{{ formatDate(article?.fetchedDate, 'medium') }}</span>
         </div>

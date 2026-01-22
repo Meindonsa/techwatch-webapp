@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, type ComputedRef, type Ref, ref } from 'vue'
-import { articleData } from '@/shared/service/ArticleData.ts'
+import { computed, type Ref, ref } from 'vue'
 
 export const useArticleStore = defineStore('article', () => {
   const articles: Ref<any[]> = ref([])

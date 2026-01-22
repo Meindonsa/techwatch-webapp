@@ -42,9 +42,6 @@ const handlePageChange = (newPage: number) => {
 watchEffect(() => {
   retrieveArticles(0, searchValue.value)
 })
-onMounted(() => {
-  retrieveArticles()
-})
 </script>
 
 <template>

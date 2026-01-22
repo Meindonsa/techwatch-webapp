@@ -2,8 +2,12 @@
 import { onMounted, ref } from 'vue'
 import { SourceService } from '@/shared/api/SourceService.ts'
 import type { SourceView } from '@meindonsa/techwatch-api/models'
+import SourceForm from '@/features/home/SourceForm.vue'
+import { isUrl } from '@/shared/service/Utils.ts'
 
 const loading = ref(false)
+const errorMessage = ref<null | string>(null)
+const showSource = ref(false)
 const sources = ref<SourceView[]>([])
 const retrieveSources = async () => {
   loading.value = true
@@ -16,6 +20,37 @@ const retrieveSources = async () => {
   loading.value = false
 }
 
+const hideForm = () => {
+  showSource.value = !showSource.value
+}
+
+const onSubmit = (event: any) => {
+  const req = event
+  if (!isUrl(req?.url)) {
+    errorMessage.value = 'Url invalid !'
+    setTimeout(() => {
+      errorMessage.value = null
+    }, 2000)
+    return
+  }
+  loading.value = true
+
+  SourceService.createSource(req)
+    .then((data) => {
+      hideForm();
+      retrieveSources()
+    })
+    .catch((error) => {
+      errorMessage.value = error?.response?.data?.message
+      setTimeout(() => {
+        errorMessage.value = null;
+      }, 2000)
+    })
+    .finally(() => {
+      loading.value = false;
+    })
+}
+
 onMounted(() => {
   retrieveSources()
 })
@@ -25,10 +60,27 @@ onMounted(() => {
   <div
     class="w-full max-w-sm p-6 bg-neutral-primary-soft border border-gray-500 rounded-base shadow-xs"
   >
-    <h5 class="mb-4 text-xl font-semibold leading-none text-heading text-white">Sources</h5>
-    <div class="flow-root">
+    <h5
+      class="flex justify-between mb-4 text-xl font-semibold leading-none text-heading text-white"
+    >
+      <span>Sources</span>
+      <span class="cursor-pointer" @click="hideForm">+</span>
+    </h5>
+    <Transition>
+      <span v-if="errorMessage != null" class="text-red-500 text-sm font-light">{{
+        errorMessage
+      }}</span>
+    </Transition>
+    <div class="flow-root mt-3">
+      <SourceForm v-if="showSource" @onCancel="hideForm" @onSave="onSubmit($event)" />
       <div class="text-center text-gray-700" v-if="loading">Chargement ...</div>
-      <TransitionGroup tag="ul" mode="easy-in-out" role="list" class="divide-default text-gray-300">
+      <TransitionGroup
+        v-if="!showSource"
+        tag="ul"
+        mode="easy-in-out"
+        role="list"
+        class="divide-default text-gray-300"
+      >
         <li
           v-for="source of sources"
           :key="source?.fid"
