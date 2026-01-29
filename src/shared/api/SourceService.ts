@@ -15,5 +15,9 @@ export const SourceService = {
   async createSource(req: any): Promise<AxiosResponse> {
     const request: SourceView = req;
     return sourceApi.createSource(request)
+  },
+
+  async deleteSource(fid: string): Promise<AxiosResponse> {
+    return  sourceApi.deleteSource(fid);
   }
 }

@@ -17,7 +17,7 @@ const onSearching = (): void => {
     v-model="searchKey"
     @input.prevent="onSearching"
     class="w-100 px-3 py-2 border border-white text-heading text-sm rounded-sm placeholder:text-gray-500 text-white"
-    placeholder="Search"
+    placeholder="Recherche..."
   />
 </template>
 
