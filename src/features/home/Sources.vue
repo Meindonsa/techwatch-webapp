@@ -37,20 +37,37 @@ const onSubmit = (event: any) => {
 
   SourceService.createSource(req)
     .then((data) => {
-      hideForm();
+      hideForm()
       retrieveSources()
     })
     .catch((error) => {
       errorMessage.value = error?.response?.data?.message
       setTimeout(() => {
-        errorMessage.value = null;
+        errorMessage.value = null
       }, 2000)
     })
     .finally(() => {
-      loading.value = false;
+      loading.value = false
     })
 }
 
+const deleteSource = (fid: any) => {
+  loading.value = true
+  const source = sources.value.find((s) => s.fid === fid)
+  if (source) {
+    SourceService.deleteSource(fid)
+      .then(() => {
+        sources.value = sources.value.filter((s) => s.fid !== fid)
+      })
+      .catch((error) => {
+        errorMessage.value = error?.response?.data?.message
+        setTimeout(() => {
+          errorMessage.value = null
+        }, 2000)
+      })
+      .finally(()=>{ loading.value = false})
+  }
+}
 onMounted(() => {
   retrieveSources()
 })
@@ -84,15 +101,12 @@ onMounted(() => {
         <li
           v-for="source of sources"
           :key="source?.fid"
-          class="text-sm text-body truncate mb-2 hover:text-indigo-500 transition ease-in-out duration-300"
+          class="flex justify-between text-sm text-body truncate mb-2 hover:text-indigo-500 transition ease-in-out duration-300 cursor-pointer"
         >
-          <a
-            :href="source?.url"
-            target="_blank"
-            class="cursor-pointer hover:underline hover:underline-offset-4"
-          >
+          <a :href="source?.url" target="_blank" class="hover:underline hover:underline-offset-4">
             {{ source?.name }}
           </a>
+          <a class="text-red-500 trash text-md" @click="deleteSource(source?.fid)">x</a>
         </li>
       </TransitionGroup>
     </div>
@@ -108,5 +122,15 @@ onMounted(() => {
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+li {
+  a.trash {
+    display: none;
+  }
+}
+li:hover {
+  a.trash {
+    display: block;
+  }
 }
 </style>
