@@ -10,6 +10,13 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/articles',
+      name: 'articles',
+      props: true,
+
+      component: () => import('@/features/articles/Articles.vue'),
+    },
+    {
       path: '/article/:fid',
       name: 'article',
       props: true,
